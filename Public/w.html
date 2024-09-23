@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Webhook</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #12121a;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 2em;
+            color: #555;
+            cursor: default;
+        }
+
+        .logo span {
+            color: #7d2ae8;
+        }
+
+        .btn-talk {
+            color: #fff;
+            text-decoration: none;
+            background-color: #7d2ae8;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-talk:hover {
+            background-color: #5d1b7c;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 80px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #7d2ae8;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #5d1b7c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">News<span>Scammers</span></div>
+        <a href="#" class="btn-talk">Talk to Us</a>
+    </header>
+
+    <h2>Add Webhook</h2>
+    <form id="webhookForm">
+        <label for="webhookId">Webhook ID:</label><br>
+        <input type="text" id="webhookId" name="webhookId"><br>
+        <label for="webhookUrl">Webhook URL:</label><br>
+        <input type="text" id="webhookUrl" name="webhookUrl"><br><br>
+        <button type="submit">Add Webhook</button>
+    </form>
+
+    <script>
+        document.getElementById('webhookForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const webhookId = document.getElementById('webhookId').value;
+            const webhookUrl = document.getElementById('webhookUrl').value;
+
+            try {
+                const response = await fetch('/api/webhook', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id: webhookId, url: webhookUrl })
+                });
+                const data = await response.text();
+                alert(data);
+            } catch (error) {
+                console.error('Error adding webhook:', error);
+                alert('Error adding webhook. Please try again.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الطلبات</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Scheherazade:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Scheherazade', sans-serif;
+        }
+
+        body {
+            background-color: #12121a;
+            color: #fff;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #12121a;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+        }
+
+        input[type="submit"],
+        button {
+            background-color: #7d2ae8;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #6c1cd5;
+        }
+    </style>
+</head>
+<body dir="rtl">
+    <h1>طلب تشهير</h1>
+    <form id="orderForm">
+        <label for="userId">معرّفك (الضحية):</label>
+        <input type="text" id="userId" name="userId" required>
+        
+        <label for="scammerId">معرّف المحتال:</label>
+        <input type="text" id="scammerId" name="scammerId" required>
+        
+        <label for="product">السلعة:</label>
+        <input type="text" id="product" name="product" required>
+        
+        <label for="issue">المشكلة:</label>
+        <textarea id="issue" name="issue" required></textarea>
+        
+        <label for="photos">روابط الصور (افصل بين الروابط بفاصلة):</label>
+        <input type="text" id="photos" name="photos" required>
+        
+        <input type="submit" value="إرسال الطلب">
+    </form>
+
+    <h1>طلب توثيق</h1>
+    <form id="verificationForm">
+        <label for="username">اسم المستخدم:</label>
+        <input type="text" id="username" name="username"><br>
+        <label for="userId">معرف المستخدم:</label>
+        <input type="text" id="userId" name="userId"><br>
+        <label for="product">وش تبيع؟:</label>
+        <input type="text" id="product" name="product"><br>
+        <label for="photos">روابط الصور:</label>
+        <input type="text" id="photos" name="photos"><br><br>
+        <button type="submit">تقديم</button>
+    </form>
+
+    <script>
+        document.getElementById("orderForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = {
+                userId: form.elements["userId"].value,
+                scammerId: form.elements["scammerId"].value,
+                product: form.elements["product"].value,
+                issue: form.elements["issue"].value,
+                photos: form.elements["photos"].value.split(',')
+            };
+            
+            fetch('/api/order', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text())
+            .then(message => {
+                alert(message);
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the order form.');
+            });
+        });
+
+        document.getElementById("verificationForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = {
+                username: form.elements["username"].value,
+                userId: form.elements["userId"].value,
+                product: form.elements["product"].value,
+                photos: form.elements["photos"].value.split(',')
+            };
+            
+            fetch('/api/order-verify', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.text())
+            .then(message => {
+                alert(message);
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the verification form.');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: ; /* تغيير لون الخلفية هنا */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        body {
+            background-color: #12121a; /* تغيير لون الخلفية هنا */
+        }
+
+        .logo {
+            font-size: 2em;
+            color: #555;
+            cursor: default;
+        }
+
+        .logo span {
+            color: #7d2ae8;
+        }
+
+        .navigation {
+            margin-left: -300px;
+        }
+
+        .navigation a {
+            font-size: 1.1em;
+            color: #555;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: 500;
+            transition: .3s;
+        }
+
+        .navigation a:hover {
+            color: #7d2ae8;
+        }
+
+        .btn-talk {
+            color: #fff;
+            text-decoration: none;
+            background-color: #7d2ae8;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-talk:hover {
+            background-color: #5d1b7c;
+        }
+
+        h1, h2 {
+            color: #f1f3ff;
+            margin-top: 80px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button[type="submit"] {
+            background-color: #7d2ae8;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #5d1b7c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Dashboard <span>Management</span></div>
+        <nav class="navigation">
+            <!-- Navigation links removed -->
+        </nav>
+    </header>
+
+    <h1></h1>
+
+    <h2>Exposing Scammers</h2>
+    <form id="exposeScammerForm">
+        <label for="scammerUserId">Scammer User ID:</label>
+        <input type="text" id="scammerUserId" name="scammerUserId">
+        <br>
+        <label for="scammerReason">Reason:</label>
+        <input type="text" id="scammerReason" name="scammerReason">
+        <br>
+        <label for="scammerPhotos">Photos:</label>
+        <input type="text" id="scammerPhotos" name="scammerPhotos">
+        <br>
+        <button type="submit" class="btn-talk">Expose Scammer</button>
+    </form>
+
+    <h2>Verifying Users</h2>
+    <form id="verifyUserForm">
+        <label for="verifiedUserId">User ID:</label>
+        <input type="text" id="verifiedUserId" name="verifiedUserId">
+        <br>
+        <label for="verifiedPhotos">Photos:</label>
+        <input type="text" id="verifiedPhotos" name="verifiedPhotos">
+        <br>
+        <button type="submit" class="btn-talk">Verify User</button>
+    </form>
+
+    <h2>Removing Scammers</h2>
+    <form id="removeScammerForm">
+        <label for="removedScammerUserId">Scammer User ID:</label>
+        <input type="text" id="removedScammerUserId" name="removedScammerUserId">
+        <br>
+        <button type="submit" class="btn-talk">Remove Scammer</button>
+    </form>
+
+    <h2>Removing Verification</h2>
+    <form id="removeVerificationForm">
+        <label for="removedVerificationUserId">User ID:</label>
+        <input type="text" id="removedVerificationUserId" name="removedVerificationUserId">
+        <br>
+        <button type="submit" class="btn-talk">Remove Verification</button>
+    </form>
+
+    <script>
+
+    document.getElementById('exposeScammerForm').addEventListener('submit', function(event) {
+
+        event.preventDefault();
+
+        const form = event.target;
+
+        const userId = form.elements['scammerUserId'].value;
+
+        const reason = form.elements['scammerReason'].value;
+
+        const photos = form.elements['scammerPhotos'].value.split(',');
+
+        fetch('/api/expose-scammer', {
+
+            method: 'POST',
+
+            headers: {
+
+                'Content-Type': 'application/json'
+
+            },
+
+            body: JSON.stringify({ userId, reason, photos })
+
+        })
+
+        .then(response => response.text())
+
+        .then(data => {
+
+            console.log(data);
+
+            alert(data);
+
+        })
+
+        .catch(error => {
+
+            console.error('Error exposing scammer:', error);
+
+        });
+
+    });
+
+    document.getElementById('verifyUserForm').addEventListener('submit', function(event) {
+
+        event.preventDefault();
+
+        const form = event.target;
+
+        const userId = form.elements['verifiedUserId'].value;
+
+        const photos = form.elements['verifiedPhotos'].value.split(',');
+
+        fetch('/api/verify', {
+
+            method: 'POST',
+
+            headers: {
+
+                'Content-Type': 'application/json'
+
+            },
+
+            body: JSON.stringify({ userId, photos })
+
+        })
+
+        .then(response => response.text())
+
+        .then(data => {
+
+            console.log(data);
+
+            alert(data);
+
+        })
+
+        .catch(error => {
+
+            console.error('Error verifying user:', error);
+
+        });
+
+    });
+
+    document.getElementById('removeScammerForm').addEventListener('submit', function(event) {
+
+        event.preventDefault();
+
+        const form = event.target;
+
+        const userId = form.elements['removedScammerUserId'].value;
+
+        fetch(`/api/remove-scammer/${userId}`, {
+
+            method: 'DELETE'
+
+        })
+
+        .then(response => response.text())
+
+        .then(data => {
+
+            console.log(data);
+
+            alert(data);
+
+        })
+
+        .catch(error => {
+
+            console.error('Error removing scammer:', error);
+
+        });
+
+    });
+
+    document.getElementById('removeVerificationForm').addEventListener('submit', function(event) {
+
+        event.preventDefault();
+
+        const form = event.target;
+
+        const userId = form.elements['removedVerificationUserId'].value;
+
+        fetch(`/api/remove-verification/${userId}`, {
+
+            method: 'DELETE'
+
+        })
+
+        .then(response => response.text())
+
+        .then(data => {
+
+            console.log(data);
+
+            alert(data);
+
+        })
+
+        .catch(error => {
+
+            console.error('Error removing verification:', error);
+
+        });
+
+    });
+
+</script>
+</body>
+</html>
