@@ -1,0 +1,26 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^18.0.6",
+    "axios": "^1.6.7",
+    "body-parser": "^1.20.2",
+    "discord.js": "^13.14.1",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
+    "html-obfuscator": "^1.0.2",
+    "i": "^0.3.7",
+    "minecraft-server-status": "^1.0.1",
+    "mineflayer": "^4.19.0",
+    "node-fetch": "^3.2.6",
+    "npm": "^10.4.0"
+  }
+}

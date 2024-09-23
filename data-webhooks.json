@@ -1,0 +1,20 @@
+{
+  "webhooks": [
+    {
+      "id": "1",
+      "url": "https://discord.com/api/webhooks/1209942330233192478/LpKXNsaaYx-L4O5gwSP69ke40Ew-Uzta5wGXLJ54CIWGstxDWxysU20Hst8pFQAQNp5S"
+    },
+    {
+      "id": "1211377812078985256",
+      "url": "https://discord.com/api/webhooks/1211377812078985256/JH4pY26PzfLL2D-87X9aSoSzg_dKacC86J_Jwkh8yzbN_D2EuNYiAuHxnXb-TJwJOCFp"
+    },
+    {
+      "id": "1211387523473866762",
+      "url": "https://discord.com/api/webhooks/1211388294483673229/tO3crWoCReBMN5ErxrSjqxK71xp39OImd0dHh48k1u6FOKKNTF0qSTiEWWCMpZSScnUt"
+    },
+    {
+      "id": "1211388267170107522",
+      "url": "https://discord.com/api/webhooks/1211388267170107522/qZSCtKM6lxRYBVHiWLUpEVE-kkq6DETiSdmxrAtcZIpqpPY8H3_F-kM7JnQNunNIDa00"
+    }
+  ]
+}
